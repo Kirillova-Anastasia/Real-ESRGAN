@@ -254,12 +254,12 @@ class RealESRGANer():
 
 
 if __name__ == '__main__':
-    with open(os.path.join(args.output_time, 'Real-ESRGAN.txt'), 'a') as f:
+    with open(os.path.join(args.output_time), 'a') as f:
         f.write('OK ' + args.input + '\n')
     begin = time.time()
 
     main()
 
     end = time.time()
-    with open(os.path.join(args.output_time, 'Real-ESRGAN.txt'), 'a') as f:
+    with open(os.path.join(args.output_time), 'a') as f:
         f.write('Full time on {}: {}\n'.format(args.input, end - begin))
