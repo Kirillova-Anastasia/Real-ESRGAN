@@ -129,3 +129,7 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+
+#pretrained model
+experiments/pretrained_models/RealESRGAN_x4plus.pth
