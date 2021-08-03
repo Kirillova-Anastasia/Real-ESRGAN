@@ -9,33 +9,35 @@ from basicsr.archs.rrdbnet_arch import RRDBNet
 from torch.nn import functional as F
 
 
-def main():
-    parser = argparse.ArgumentParser()
-    parser.add_argument('--input', type=str, default='inputs', help='Input image or folder')
-    parser.add_argument(
-        '--model_path',
-        type=str,
-        default='experiments/pretrained_models/RealESRGAN_x4plus.pth',
-        help='Path to the pre-trained model')
-    parser.add_argument('--output', type=str, default='results', help='Output folder')
-    parser.add_argument('--scale', type=int, default=4, help='Upsample scale factor')
-    parser.add_argument('--suffix', type=str, default='out', help='Suffix of the restored image')
-    parser.add_argument('--tile', type=int, default=0, help='Tile size, 0 for no tile during testing')
-    parser.add_argument('--tile_pad', type=int, default=10, help='Tile padding')
-    parser.add_argument('--pre_pad', type=int, default=0, help='Pre padding size at each border')
-    parser.add_argument('--half', action='store_true', help='Use half precision during inference')
-    parser.add_argument(
-        '--alpha_upsampler',
-        type=str,
-        default='realesrgan',
-        help='The upsampler for the alpha channels. Options: realesrgan | bicubic')
-    parser.add_argument(
-        '--ext',
-        type=str,
-        default='auto',
-        help='Image extension. Options: auto | jpg | png, auto means using the same extension as inputs')
-    args = parser.parse_args()
+parser = argparse.ArgumentParser()
+parser.add_argument('--input', type=str, default='inputs', help='Input image or folder')
+parser.add_argument(
+    '--model_path',
+    type=str,
+    default='experiments/pretrained_models/RealESRGAN_x4plus.pth',
+    help='Path to the pre-trained model')
+parser.add_argument('--output', type=str, default='results', help='Output folder')
+parser.add_argument('--output-time', type=str, default='results', help='Output folder')
+parser.add_argument('--scale', type=int, default=4, help='Upsample scale factor')
+parser.add_argument('--suffix', type=str, default='out', help='Suffix of the restored image')
+parser.add_argument('--tile', type=int, default=0, help='Tile size, 0 for no tile during testing')
+parser.add_argument('--tile_pad', type=int, default=10, help='Tile padding')
+parser.add_argument('--pre_pad', type=int, default=0, help='Pre padding size at each border')
+parser.add_argument('--half', action='store_true', help='Use half precision during inference')
+parser.add_argument(
+    '--alpha_upsampler',
+    type=str,
+    default='realesrgan',
+    help='The upsampler for the alpha channels. Options: realesrgan | bicubic')
+parser.add_argument(
+    '--ext',
+    type=str,
+    default='auto',
+    help='Image extension. Options: auto | jpg | png, auto means using the same extension as inputs')
+args = parser.parse_args()
 
+
+def main():
     upsampler = RealESRGANer(
         scale=args.scale,
         model_path=args.model_path,
@@ -252,4 +254,12 @@ class RealESRGANer():
 
 
 if __name__ == '__main__':
+    with open(os.path.join(args.output-time, 'Real-ESRGAN.txt'), 'a') as f:
+        f.write('OK ' + args.input + '\n')
+    begin = time.time()
+
     main()
+
+    end = time.time()
+    with open(os.path.join(args.output-time, 'Real-ESRGAN.txt'), 'a') as f:
+        f.write('Full time on {}: {}\n'.format(args.input, end - begin))
