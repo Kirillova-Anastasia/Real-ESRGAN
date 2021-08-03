@@ -5,9 +5,9 @@ import math
 import numpy as np
 import os
 import torch
+import time
 from basicsr.archs.rrdbnet_arch import RRDBNet
 from torch.nn import functional as F
-
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--input', type=str, default='inputs', help='Input image or folder')
@@ -17,7 +17,7 @@ parser.add_argument(
     default='experiments/pretrained_models/RealESRGAN_x4plus.pth',
     help='Path to the pre-trained model')
 parser.add_argument('--output', type=str, default='results', help='Output folder')
-parser.add_argument('--output-time', type=str, default='results', help='Output folder')
+parser.add_argument('--output_time', type=str, default='results', help='Output folder')
 parser.add_argument('--scale', type=int, default=4, help='Upsample scale factor')
 parser.add_argument('--suffix', type=str, default='out', help='Suffix of the restored image')
 parser.add_argument('--tile', type=int, default=0, help='Tile size, 0 for no tile during testing')
@@ -254,12 +254,12 @@ class RealESRGANer():
 
 
 if __name__ == '__main__':
-    with open(os.path.join(args.output-time, 'Real-ESRGAN.txt'), 'a') as f:
+    with open(os.path.join(args.output_time, 'Real-ESRGAN.txt'), 'a') as f:
         f.write('OK ' + args.input + '\n')
     begin = time.time()
 
     main()
 
     end = time.time()
-    with open(os.path.join(args.output-time, 'Real-ESRGAN.txt'), 'a') as f:
+    with open(os.path.join(args.output_time, 'Real-ESRGAN.txt'), 'a') as f:
         f.write('Full time on {}: {}\n'.format(args.input, end - begin))
