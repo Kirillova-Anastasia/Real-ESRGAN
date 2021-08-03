@@ -133,3 +133,6 @@ dmypy.json
 
 #pretrained model
 experiments/pretrained_models/RealESRGAN_x4plus.pth
+experiments/pretrained_models/ESRGAN_SRx4_DF2KOST_official-ff704c30.pth
+experiments/pretrained_models/RealESRNet_x4plus.pth
+
