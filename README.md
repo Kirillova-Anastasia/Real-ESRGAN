@@ -1,3 +1,7 @@
+# Running on your own dataset:
+1) We used `pytorch/pytorch:1.7.0-cuda11.0-cudnn8-devel` docker. Directory with input images is mounted as `/dataset`, results will be saved in `/output`, directory with code is mounted as `/Real-ESRGAN`.
+2) Enter directory `/Real-ESRGAN`. See `Real-ESRGAN.sh` script for installation commands and running example.
+
 # Real-ESRGAN
 
 [![download](https://img.shields.io/github/downloads/xinntao/Real-ESRGAN/total.svg)](https://github.com/xinntao/Real-ESRGAN/releases)
